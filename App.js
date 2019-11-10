@@ -1,4 +1,5 @@
 import React from 'react';
+import ToggleSwitch from 'toggle-switch-react-native';
 import {
   StyleSheet,
   View,
@@ -12,7 +13,9 @@ class App extends React.Component {
     super();
     this.state = {
       resultText : "",
-      output : ""
+      output : "",
+      isOn:false,
+      style:styles.numbersred,
     }
   }
 
@@ -108,6 +111,18 @@ class App extends React.Component {
 
     return (
       <View style={styles.container}>
+      <View style={styles.togk}>
+      <ToggleSwitch
+      
+  isOn={this.state.isOn}
+  onColor="green"
+  offColor="red"
+  label=""
+  labelStyle={{ color: "black", fontWeight: "900" }}
+  size="small"
+  onToggle={()=>this.state.isOn?this.setState({isOn:false,style:styles.numbersred}):this.setState({isOn:true,style:styles.numbersgreen})}
+/>
+      </View>
         <View style={styles.result}>
           <Text style={styles.resultText}>{ this.state.resultText }</Text>
         </View>
@@ -115,7 +130,7 @@ class App extends React.Component {
           <Text style={styles.calculationText}>{ this.state.output }</Text>
         </View>
         <View style={styles.buttons}>
-          <View style={styles.numbers}>
+          <View style={this.state.style}>
             {rows}
           </View>
           <View style={styles.operations}>
@@ -131,7 +146,7 @@ class App extends React.Component {
 // Styles
 const styles = StyleSheet.create({
   container : {
-    flex : 1
+    flex : 1,
   },
   row : {
     flexDirection : 'row',
@@ -174,15 +189,26 @@ const styles = StyleSheet.create({
     flex : 7,
     flexDirection : 'row'
   },
-  numbers : {
+  numbersred : {
     flex : 3,
-    backgroundColor : '#111',
+    backgroundColor : 'red',
+    justifyContent: 'space-around'
+  },
+  numbersgreen : {
+    flex : 3,
+    backgroundColor : 'green',
     justifyContent: 'space-around'
   },
   operations : {
     flex : 1,
     backgroundColor : 'black',
     justifyContent: 'space-around'
+  },
+  togk: {
+    flex: 0,
+    marginTop:30,
+    justifyContent : 'space-evenly',
+
   }
 });
 
